@@ -27,7 +27,7 @@
                 <td>{{ $pmk->tanggal_produk_keluar }}</td>
                 <td>{{ $pmk->total_produk_masuk_keluar }}</td>
                 <td>
-                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalFormProdukMasukKeluar" 
+                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalFormProdukmasukkeluar" 
                     data-mode="edit"
                     data-id_kelola = "{{$pmk->id_kelola}}" 
                     data-id_produk = "{{$pmk->id_produk}}" 
@@ -43,13 +43,14 @@
                     >
                     <i class="fas fa-pen"></i>
                     </button>
-                    <form action="{{route('produkmasukkeluar.destroy', $pmk->id_kelola) }}" method="post" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="btn btn-light remove" data-toggle="modal" data-target="#confirmDialog">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </form>
+                    <button type="button"
+                        class="btn btn-light remove"
+                        data-toggle="modal"
+                        data-target="#confirmDialog"
+                        data-id="{{ $pmk->id_kelola }}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    
                 </td>
             </tr>
             @endforeach
@@ -72,7 +73,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                <button type="button" class="btn btn-primary" id="btn-confirm">Ya, data akan dihapus</button>
+                <form id="formDelete" action="" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-primary" id="btn-confirm">Ya, data akan dihapus</button>
+                </form>
             </div>
         </div>
     </div>

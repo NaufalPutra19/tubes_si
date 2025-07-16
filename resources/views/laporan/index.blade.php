@@ -73,7 +73,6 @@
 @include('laporan.form')
 
 @push('script')
-<script src="extensions/export/bootstrap-table-export.js"></script>
 <script>
     $('.alert-success').fadeTo(2000, 500).slideUp(500,
         function() {

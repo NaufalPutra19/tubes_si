@@ -6,6 +6,7 @@ use App\Models\ProdukMasukKeluar;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProdukMasukKeluarRequest;
 use App\Http\Requests\UpdateProdukMasukKeluarRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProdukMasukKeluarController extends Controller
 {
@@ -73,7 +74,21 @@ class ProdukMasukKeluarController extends Controller
      */
     public function update(UpdateProdukMasukKeluarRequest $request, ProdukMasukKeluar $produkMasukKeluar)
     {
-        $produkMasukKeluar->update($request->all());
+        // dd($request);
+        // die();
+        ProdukMasukKeluar::where('id_kelola', $request->id_kelola)->update([
+            'id_produk' => $request->id_produk,
+            'nama_produk' => $request->nama_produk,
+            'jenis_produk' => $request->jenis_produk,
+            'produk_masuk' => $request->produk_masuk,
+            'tanggal_produk_masuk' => $request->tanggal_produk_masuk,
+            'produk_keluar' => $request->produk_keluar,
+            'tanggal_produk_keluar' => $request->tanggal_produk_keluar,
+            'total_produk_masuk_keluar' => $request->total_produk_masuk_keluar
+            // tambahkan kolom lainnya
+        ]);
+        // Log::info('Data yang diupdate:', $request->all());
+        // Log::info('Model:', $produkMasukKeluar->toArray());
 
         return redirect('produkmasukkeluar')->with('success', 'Data Berhasil Diupdate');
     }
@@ -84,10 +99,13 @@ class ProdukMasukKeluarController extends Controller
      * @param  \App\Models\ProdukMasukKeluar  $produkMasukKeluar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProdukMasukKeluar $produkMasukKeluar)
-    {
+    public function destroy($id_kelola)
+    {   
+        $produkMasukKeluar = ProdukMasukKeluar::where('id_kelola', $id_kelola)->firstOrFail();
+        // dd($produkMasukKeluar);
+        // die();
         $produkMasukKeluar->delete();
 
-        return redirect('produkmasukkeluar')->with('success', 'Data Produk Masuk Keluar berhasil Dihapus');
+        return redirect('produkmasukkeluar')->with('success', 'Data Produk Masuk Keluar berhasil Dihapus');
     }
 }

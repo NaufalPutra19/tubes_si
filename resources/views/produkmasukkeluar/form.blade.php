@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalFormProdukMasukKeluar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalFormProdukmasukkeluar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,6 +10,7 @@
             <div class="modal-body">
                 <form method="post" action="produkmasukkeluar">
                     @csrf
+                    <input type="hidden" name="id_kelola" id="id_kelola" value="">
                     <div id="method"></div>
                     <div class="form-group row">
                         <label for="id_produk" class="col-sm-4 col-form-label">ID Produk</label>

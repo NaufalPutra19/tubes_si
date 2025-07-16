@@ -11,14 +11,14 @@ class UserController extends Controller
 {
     public function index() {
         if($user = Auth::user()) {
-            // switch ($user->level) {
-            //     case '1':
-            //     return redirect()->intended('/home');
-            //     break;
-            //     case '2':
-            //     return redirect()->intended('/home');
-            //     break;
-            // }
+            switch ($user->level) {
+                case '1':
+                return redirect()->intended('home');
+                break;
+                case '2':
+                return redirect()->intended('home');
+                break;
+            }
             return redirect()->intended('home');
         }
         return view('auth.login');
@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function cekLogin(AuthRequest $request) {
         // return $request;
-        $credential = $request->only('username','password');
+        $credential = $request->only('email','password');
         
         $request->session()->regenerate();
        if (Auth::attempt($credential)) {
@@ -47,7 +47,7 @@ class UserController extends Controller
 
     return back()->withErrors([
         'nofound' => 'Email or Password is wrong'
-    ])->onlyInput('email');
+    ])->onlyInput('username');
 
     }
 

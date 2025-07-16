@@ -24,32 +24,32 @@ class PenggunaController extends Controller
         return view('auth.login');
     }
 
-    // public function cekLogin(AuthRequest $request) {
-    //     // return $request;
-    //     $credential = $request->only('username','password');
+    public function cekLogin(AuthRequest $request) {
+        // return $request;
+        $credential = $request->only('username','password');
         
-    //     $request->session()->regenerate();
-    //    if (Auth::attempt($credential)) {
-    //     $pengguna = Auth::user();
-    //     // switch ($user->level) {
-    //     //     case '1':
-    //     //         return redirect()->intended('home');
-    //     //         break;
-    //     //         case '2':
-    //     //         return redirect()->intended('home');
-    //     //         break;
-    //     // }
-    //     if ($pengguna) {
-    //         return redirect()->intended('home');
-    //     }
+        $request->session()->regenerate();
+       if (Auth::attempt($credential)) {
+        $pengguna = Auth::user();
+        // switch ($user->level) {
+        //     case '1':
+        //         return redirect()->intended('home');
+        //         break;
+        //         case '2':
+        //         return redirect()->intended('home');
+        //         break;
+        // }
+        if ($pengguna) {
+            return redirect()->intended('home');
+        }
 
-    // };
+    };
 
-    // return back()->withErrors([
-    //     'nofound' => 'Username or Password is wrong'
-    // ])->onlyInput('username');
+    return back()->withErrors([
+        'nofound' => 'Username or Password is wrong'
+    ])->onlyInput('username');
 
-    // }
+    }
 
     public function logout(request $request) {
         Auth::logout();

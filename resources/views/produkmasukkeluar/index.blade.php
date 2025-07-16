@@ -51,7 +51,7 @@
                 </button>
             </div>
             @endif
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalFormProdukMasukKeluar">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalFormProdukmasukkeluar">
                 Tambah kelola
             </button>
         </div>
@@ -82,18 +82,25 @@
 
     $('#tbl-produkmasukkeluar').DataTable();
 
-    $('.remove').on('click', function() {
-        const data = $(this).closest('tr').find('td:eq(1)').text()
+    // $('.remove').on('click', function() {
+    //     const data = $(this).closest('tr').find('td:eq(1)').text()
 
-        $('#data-delete').text(data)
+    //     $('#data-delete').text(data)
 
-        const form = $(this).closest('tr').find('form')
-        $('#btn-confirm').on('click', function() {
-            form.submit()
-        })
-    })
+    //     const form = $(this).closest('tr').find('form')
+    //     $('#btn-confirm').on('click', function() {
+    //         form.submit()
+    //     })
+    // })
 
-    $('#modalFormProdukMasukKeluar').on('show.bs.modal', function(e){
+    $(document).on('click', '.remove', function () {
+    const id_kelola = $(this).data('id');
+    const url =`{{ url('produkmasukkeluar') }}/${id_kelola}`; // Sesuaikan dengan route kamu
+
+  $('#formDelete').attr('action',url);
+});
+
+    $('#modalFormProdukmasukkeluar').on('show.bs.modal', function(e){
     const btn = $(e.relatedTarget)
     const modal = $(this)
     const mode = btn.data('mode')
@@ -109,6 +116,7 @@
     const route = btn.data('route')
     if (mode === 'edit') {
         modal.find('.modal-title').text('Edit Data')
+        modal.find('#id_kelola').val(id_kelola)
         modal.find('#id_produk').val(id_produk)
         modal.find('#nama_produk').val(nama_produk)
         modal.find('#jenis_produk').val(jenis_produk)
@@ -117,12 +125,13 @@
         modal.find('#produk_keluar').val(produk_keluar)
         modal.find('#tanggal_produk_keluar').val(tanggal_produk_keluar)
         modal.find('#total_produk_masuk_keluar').val(total_produk_masuk_keluar)
-        $('#modalFormProdukMasukKeluar form').attr('action', route)
+        $('#modalFormProdukmasukkeluar form').attr('action', route)
+        $('#methodInput').val('PUT')
         // $('#method').html('@method("PUT")')
         modal.find('#method').html('@method("PATCH")')
         modal.find('form').attr('action', `{{ url('produkmasukkeluar') }}/${id_kelola}`)
     } else {
-        modal.find('.modal-title').text('Form Absensi')
+        modal.find('.modal-title').text('Form Produk Masuk Keluar')
         modal.find('#id_produk').val('')
         modal.find('#nama_produk').val('')
         modal.find('#jenis_produk').val('')
@@ -132,10 +141,11 @@
         modal.find('#tanggal_produk_keluar').val('')
         modal.find('#total_produk_masuk_keluar').val('')
         modal.find('form').attr('action', `{{ url("produkmasukkeluar") }}`)
+        $('#methodInput').val('POST')
     }
 })
 
-$('#modalFormProdukMasukKeluar').on('show.bs.modal', function () {
+$('#modalFormprodukmasukkeluar').on('show.bs.modal', function () {
         $('#id_kelola').delay(1000).focus().select();
     })
 </script>

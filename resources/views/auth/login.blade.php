@@ -26,20 +26,20 @@
     <div class="card-body">
       <p class="login-box-msg">Form Login</p>
 
-      <form action="{{ url('home') }}">
-        <!-- @csrf -->
+      <form action="{{ route('cekLogin') }}" method="post">
+        @csrf
         <div class="input-group mb-3">
           <input autofocus type="text" class="form-control" 
           @error('username')
           is-invalid
           @enderror
-          placeholder="Username" name="username">
+          placeholder="Email" name="email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
-          @error('username')
+          @error('email')
           <div class="invalid-feedback">
             {{$message}}
           </div>

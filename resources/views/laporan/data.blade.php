@@ -17,7 +17,7 @@
         id="tbl-laporan"
         class="table table-hover text-center"
         data-toggle="table"
-        data-search="true"
+        data-search="true" 
         data-show-export="true"
         data-export-types='["csv", "excel", "pdf"]'
         data-toolbar="#toolbar">
@@ -101,7 +101,7 @@
 
         $('.export').click(function () {
             var type = $(this).data('type');
-            $('#tbl-laporan').tableExport({
+            $('#tbl-laporan').tableExport({x
                 type: type,
                 escape: false
             });
